@@ -1,0 +1,109 @@
+@extends('layouts.admin')
+
+@section('content')
+<div class="container">
+    <h1>Thêm sản phẩm</h1>
+
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <div class="row mb-3">
+            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Tên sản phẩm:') }}</label>
+
+            <div class="col-md-6">
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required>
+
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="price" class="col-md-4 col-form-label text-md-end">{{ __('Giá:') }}</label>
+
+            <div class="col-md-6">
+                <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" required>
+
+                @error('price')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="quantity" class="col-md-4 col-form-label text-md-end">{{ __('Số lượng:') }}</label>
+
+            <div class="col-md-6">
+                <input id="quantity" type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" required>
+
+                @error('quantity')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Mô tả:') }}</label>
+
+            <div class="col-md-6">
+                <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description"></textarea>
+
+                @error('description')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Ảnh sản phẩm:') }}</label>
+
+            <div class="col-md-6">
+                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" accept="image/*" required>
+
+                @error('image')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="category" class="col-md-4 col-form-label text-md-end">{{ __('Loại sản phẩm:') }}</label>
+
+            <div class="col-md-6">
+                <select id="category" class="form-select @error('category') is-invalid @enderror" name="category_id" required>
+                    <option value="" disabled selected>{{ __('Chọn loại sản phẩm') }}</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+
+                @error('category_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
+
+        <div class="row mb-0">
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    {{ __('Thêm') }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
